@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkExtender</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="scanline"></div>
+
+  <main class="container">
+    <header>
+      <div class="logo">
+        <span class="bracket">[</span>
+        <span class="logo-text">LINK<span class="accent">EXTENDER</span></span>
+        <span class="bracket">]</span>
+      </div>
+      <p class="subtitle">// розтягни своє посилання до непізнаваності</p>
+    </header>
+
+    <div class="card">
+      <div class="card-label">INPUT.URL</div>
+
+      <div class="field-group">
+        <label class="field-label">
+          <span class="prompt">$</span> target_url
+        </label>
+        <div class="input-wrapper">
+          <input
+            type="url"
+            id="urlInput"
+            class="url-input"
+            placeholder="https://example.com"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <div class="input-line"></div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">
+          <span class="prompt">$</span> path_length
+          <span class="length-badge" id="lengthBadge">50</span>
+          <span class="length-unit">chars</span>
+        </label>
+        <div class="slider-wrapper">
+          <span class="slider-min">10</span>
+          <div class="slider-track-wrapper">
+            <input
+              type="range"
+              id="lengthSlider"
+              min="10"
+              max="500"
+              value="50"
+              class="slider"
+            >
+            <div class="slider-fill" id="sliderFill"></div>
+          </div>
+          <span class="slider-max">500</span>
+        </div>
+
+        <div class="preview-box" id="previewBox">
+          <span class="preview-label">preview://</span>
+          <span class="preview-chars" id="previewChars"></span>
+        </div>
+      </div>
+
+      <button class="btn-generate" id="generateBtn" onclick="generateLink()">
+        <span class="btn-text">GENERATE LINK</span>
+        <span class="btn-icon">→</span>
+        <div class="btn-loader" id="btnLoader"></div>
+      </button>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <div class="card-label">OUTPUT.LINK</div>
+      <div class="result-inner">
+        <div class="result-link" id="resultLink"></div>
+        <div class="result-meta">
+          <span class="meta-item">
+            <span class="meta-dot"></span>
+            length: <span id="metaLen">—</span>
+          </span>
+          <span class="meta-item">
+            <span class="meta-dot"></span>
+            stored in supabase
+          </span>
+        </div>
+        <button class="btn-copy" id="copyBtn" onclick="copyLink()">
+          <span id="copyText">📋 copy</span>
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <span class="footer-text">gdpsarch · linkextender · supabase-powered</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

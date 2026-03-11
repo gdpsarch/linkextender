@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting... · LinkExtender</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060809;
+      --accent: #00ff88;
+      --danger: #ff4466;
+      --text: #c8d8e8;
+      --text-dim: #5a7080;
+      --surface: #0d1117;
+      --border: #1a2332;
+      --font: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem 2.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      min-width: 300px;
+    }
+
+    .status-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .status-text {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    .url-text {
+      font-size: 0.7rem;
+      color: var(--accent);
+      word-break: break-all;
+      max-width: 400px;
+      display: none;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-state { display: none; flex-direction: column; align-items: center; gap: 0.7rem; }
+    .error-state.visible { display: flex; }
+
+    .error-text { color: var(--danger); font-size: 0.8rem; }
+
+    .back-link {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    .dots::after {
+      content: '';
+      animation: dots 1.2s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0%   { content: ''; }
+      33%  { content: '.'; }
+      66%  { content: '..'; }
+      100% { content: '...'; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <div class="card" id="card">
+    <div class="spinner" id="spinner"></div>
+    <div class="status-text">
+      <span class="dots">redirecting</span>
+    </div>
+    <div class="url-text" id="urlText"></div>
+
+    <div class="error-state" id="errorState">
+      <div class="status-icon">⚠</div>
+      <div class="error-text" id="errorMsg">посилання не знайдено</div>
+      <a href="https://gdpsarch.github.io/linkextender/" class="back-link">← повернутись</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="redirect.js"></script>
+</body>
+</html>
