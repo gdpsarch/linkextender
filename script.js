@@ -25,7 +25,7 @@ function randomPath(length) {
 
 function updateSlider() {
   const val = parseInt(slider.value);
-  const pct = ((val - 10) / (500 - 10)) * 100;
+  const pct = ((val - 10) / (1000 - 10)) * 100;
   badge.textContent = val;
   fill.style.width  = pct + '%';
   previewEl.textContent = randomPath(val);
